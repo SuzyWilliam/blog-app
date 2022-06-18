@@ -8,10 +8,10 @@
 <body style="font-family: Open Sans, sans-serif">
     
     @foreach ($posts as $post)
-        <article>
+        <article class="{{ $loop->even? "even":"odd"}}">
             <h1> <a href="posts/{{$post->slug}}"> {{ $post->title }}</a></h1>
             <p>
-                {{$post->excert}}
+                {{ $post->excerpt }}
             </p>
         </article>
         <br>

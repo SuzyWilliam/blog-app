@@ -10,11 +10,11 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class Post
 {
-    public function __construct(public string $title, public string $slug, public string $excert, public string $body,  public $date)
+    public function __construct(public string $title, public string $slug, public string $excerpt, public string $body,  public $date)
     {
         $this->title = $title;
         $this->slug = $slug;
-        $this->excert = $excert;
+        $this->excerpt = $excerpt;
         $this->body = $body;
         $this->date = $date;
     }
@@ -29,7 +29,7 @@ class Post
         return Cache::rememberForever('post.all', function () {
             return collect(File::allFiles(resource_path("posts")))
                 ->map(fn ($file) => YamlFrontMatter::parseFile($file->getPathname()))
-                ->map(fn ($document) => new Post($document->title, $document->slug, $document->excert, $document->body(), $document->date))
+                ->map(fn ($document) => new Post($document->title, $document->slug, $document->excerpt, $document->body(), $document->date))
                 ->sortByDesc('date');
         });
     }
